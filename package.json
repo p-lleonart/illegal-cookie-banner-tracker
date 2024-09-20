@@ -1,0 +1,50 @@
+{
+  "name": "illegal-cookie-banner-tracker",
+  "author": "p-lleonart",
+  "version": "0.1.0",
+  "private": false,
+  "scripts": {
+    "build": "tsc --noEmit && pnpm tw",
+    "check": "biome check --write . && xss-scan",
+    "db:apply": "tsx app/cli/migrate.ts",
+    "db:gen": "drizzle-kit generate --dialect sqlite --schema app/schema.ts --out migrations",
+    "dev": "npm-run-all --parallel serve:dev tw:dev",
+    "fix": "biome check --fix .",
+    "routes": "tsx app/cli/routes.ts",
+    "serve": "pnpm db:apply && tsx app/cli/serve.ts",
+    "serve:dev": "tsx watch app/cli/serve.ts",
+    "test": "NODE_ENV=test vitest run",
+    "test:dev": "NODE_ENV=test vitest watch",
+    "tw": "tailwindcss -i ./app/styles.css -o ./public/output.css --minify",
+    "tw:dev": "tailwindcss -i ./app/styles.css -o ./public/output.css --watch"
+  },
+  "dependencies": {
+    "@kitajs/html": "^4.2.1",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.32.0",
+    "jsonwebtoken": "^9.0.2",
+    "plainweb": "latest",
+    "tsx": "^4.16.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@kitajs/ts-html-plugin": "^4.0.1",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^20.11.24",
+    "drizzle-kit": "^0.24.0",
+    "npm-run-all2": "^6.0.0",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.3.3",
+    "vitest": "^2.0.1"
+  },
+  "packageManager": "pnpm@9.5.0",
+  "engines": {
+    "node": ">=20.10.0",
+    "pnpm": ">=9.5.0"
+  },
+  "engineStrict": true
+}
